@@ -23,19 +23,19 @@ public class CarsDAO {
     /** JDBC Insert Method (SQL -> Database)
      * @param car
      */
-    public void insertCar(Car car){
-        try{
-            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, price, mpg, ) values (?, ?, ?, ?)");
-            ps.setInt(1, p.getPaintingId());
-            ps.setString(2, p.getTitle());
-            ps.setInt(3, p.getYearMade());
-            ps.setInt(4, p.getAuthorFkey());
-            ps.executeUpdate();
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-    }
+//    public void insertCar(Car car){
+//        try{
+////            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, price, mpg, ) values (?, ?, ?, ?)");
+////            ps.setInt(1, car.getCarId());
+////            ps.setString(2, car.getTitle());
+////            ps.setInt(3, car.getYearMade());
+////            ps.setInt(4, car.getAuthorFkey());
+////            ps.executeUpdate();
+////
+////        }catch(SQLException e){
+////            e.printStackTrace();
+//        }
+//    }
 
 
 }
