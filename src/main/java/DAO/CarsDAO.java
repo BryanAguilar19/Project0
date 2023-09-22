@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Cars;
+import Service.CarsService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,15 +29,14 @@ public class CarsDAO {
             PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, year_made, price, mpg, company_id) values (?, ?, ?, ?, ?);");
             ps.setInt(1, car.getCarId());
             ps.setString(2, car.getCarName());
-            ps.setInt(3, car.getCompanyFKey());
+            ps.setInt(3, car.getYearMade());
+            ps.setDouble(4, car.getPrice());
+            ps.setDouble(5, car.getMpg());
+            ps.setInt(6, car.getCompanyFKey());
             ps.executeUpdate();
 
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
-
-
-
-
 }

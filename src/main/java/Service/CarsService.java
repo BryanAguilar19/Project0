@@ -1,7 +1,6 @@
 package Service;
 
 import DAO.CarsDAO;
-import DAO.CompanyDAO;
 import Model.Cars;
 
 /**
@@ -21,9 +20,14 @@ public class CarsService {
     /**
      * check if car match already exists in the database, if it does, throw an exception.
      * otherwise, save the car.
-     * @param c
+     *
+     * @param c The car to be saved.
+     * @param name  The name of the company associated with the car.
+     * @throws Exception If there's an issue with saving the car.
      */
     public void saveCar(Cars c, String name) throws Exception {
         int companyId = companyService.getIdFromName(name);
+
     }
+
 }
