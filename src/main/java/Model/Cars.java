@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Cars {
     //Setting my variables to private since it is only accessible within the same class
-    private int carID;
+    private int carId;
     private String carName;
     private double price;
     private double mpg;
     private int companyFKey;
 
     //Setting my Contructor
-    public Cars(int carID, String carName, double price, double mpg, int companyFKey) {
-        this.carID = carID;
+    public Cars(int carId, String carName, double price, double mpg, int companyFKey) {
+        this.carId = carId;
         this.carName = carName;
         this.price = price;
         this.mpg = mpg;
@@ -20,12 +20,12 @@ public class Cars {
     }
 
     //Setters and Getters
-    public int getCarID() {
-        return carID;
+    public int getCarId() {
+        return carId;
     }
 
-    public void setCarID(int carID) {
-        this.carID = carID;
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 
     public String getCarName() {
@@ -66,11 +66,11 @@ public class Cars {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cars cars = (Cars) o;
-        return carID == cars.carID && Double.compare(price, cars.price) == 0 && Double.compare(mpg, cars.mpg) == 0 && companyFKey == cars.companyFKey && Objects.equals(carName, cars.carName);
+        return carId == cars.carId && Double.compare(price, cars.price) == 0 && Double.compare(mpg, cars.mpg) == 0 && companyFKey == cars.companyFKey && Objects.equals(carName, cars.carName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carID, carName, price, mpg, companyFKey);
+        return Objects.hash(carId, carName, price, mpg, companyFKey);
     }
 }

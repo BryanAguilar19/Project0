@@ -2,10 +2,8 @@ package DAO;
 
 import Model.Cars;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /** Data Access Object:
@@ -28,7 +26,7 @@ public class CarsDAO {
     public void insertCar(Cars car){
         try{
             PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, price, mpg, company_id) values (?, ?, ?, ?, ?);");
-            ps.setInt(1, car.getCarID());
+            ps.setInt(1, car.getCarId());
             ps.setString(2, car.getCarName());
             ps.setInt(3, car.getCompanyFKey());
             ps.executeUpdate();

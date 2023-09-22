@@ -19,7 +19,7 @@ public class CompanyDAO {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                int id = rs.getInt("author_id");
+                int id = rs.getInt("company_id");
                 return id;
             }
         }catch(SQLException e){

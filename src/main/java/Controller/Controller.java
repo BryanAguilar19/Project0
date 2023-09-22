@@ -4,8 +4,19 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 
+/**
+ * A Controller is a class that manages web interaction - it takes in requests and produces responses
+ * The reason why it's called a 'controller' is that it need to route a request to the most appropriate method
+ * to handle it
+ */
 public class Controller {
+//    CarsService carService;
+//    CompanyService companyService;
 
+    public Controller(CarsService carsService, CompanyService companyService){
+        this.carsService = carsService;
+        this.companyService = companyService;
+    }
     public Javalin getAPI() {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
