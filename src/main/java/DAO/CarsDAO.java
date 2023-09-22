@@ -5,7 +5,10 @@ import Service.CarsService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /** Data Access Object:
  *      A style of object intended to contain methods that interact with a database, which manages the conversion from
@@ -39,4 +42,30 @@ public class CarsDAO {
             e.printStackTrace();
         }
     }
+
+    /** Query to retrieve cars by company from the database
+     *
+     */
+    public List<Cars> getCarsByCompanyId(int companyId) {
+        List<Cars> cars = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement("select * from Cars where company_id = ?")) {
+            ps.setInt(1, companyId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+//                Create Car objects and add them to the list
+                Cars car = new Cars();
+                car.setCarId(rs.getInt("car_id"));
+                car.setCarName(rs.getString("car_name"));
+                car.setYearMade(rs.getInt("year_made"));
+                car.setPrice(rs.getFloat("price"));
+                car.setMpg(rs.getFloat("mpg"));
+                car.setCompanyFKey(rs.getInt("company_id"));
+                cars.add(car);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
 }

@@ -11,6 +11,12 @@ public class Cars {
     private double mpg;
     private int companyFKey;
 
+
+//    Initializing Cars object
+    public Cars() {
+
+    }
+
     //Setting my Contructor
     public Cars(int carId, String carName, int year_made, double price, double mpg, int companyFKey) {
         this.carId = carId;
@@ -20,6 +26,7 @@ public class Cars {
         this.mpg = mpg;
         this.companyFKey = companyFKey;
     }
+
 
     //Setters and Getters
 

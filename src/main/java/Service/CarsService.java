@@ -3,6 +3,8 @@ package Service;
 import DAO.CarsDAO;
 import Model.Cars;
 
+import java.util.List;
+
 /**
  * Service used for CRUD operations on Cars
  * Create Read Update Delete
@@ -28,6 +30,10 @@ public class CarsService {
     public void saveCar(Cars c, String name) throws Exception {
         int companyId = companyService.getIdFromName(name);
 
+    }
+
+    public List<Cars> getCarsByCompanyId(int companyId){
+        return carsDAO.getCarsByCompanyId(companyId);
     }
 
 }
