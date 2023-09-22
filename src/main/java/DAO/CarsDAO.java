@@ -27,17 +27,18 @@ public class CarsDAO {
      */
     public void insertCar(Cars car){
         try{
-            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, price, mpg, ) values (?, ?, ?, ?)");
+            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, price, mpg, company_id) values (?, ?, ?, ?, ?);");
             ps.setInt(1, car.getCarID());
             ps.setString(2, car.getCarName());
             ps.setInt(3, car.getCompanyFKey());
-
             ps.executeUpdate();
 
         }catch(SQLException e){
             e.printStackTrace();
         }
     }
+
+
 
 
 }
