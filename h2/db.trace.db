@@ -1,0 +1,7 @@
+2023-09-22 14:27:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPANY" not found; SQL statement:
+
+
+--Creating tables to insert informat
+create table Cars (car_id int primary key, car_name varchar(50), price float,
+    mpg float ,company_id int, foreign key (c [42102-214]

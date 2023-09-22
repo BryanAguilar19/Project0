@@ -1,5 +1,7 @@
 package Controller;
 
+import Service.CarsService;
+import Service.CompanyService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -10,8 +12,8 @@ import io.javalin.http.Context;
  * to handle it
  */
 public class Controller {
-//    CarsService carService;
-//    CompanyService companyService;
+    CarsService carsService;
+    CompanyService companyService;
 
     public Controller(CarsService carsService, CompanyService companyService){
         this.carsService = carsService;

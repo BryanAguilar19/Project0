@@ -1,7 +1,11 @@
 package Util;
 
+import Controller.Controller;
 import DAO.CarsDAO;
 import DAO.CompanyDAO;
+import Service.CarsService;
+import Service.CompanyService;
+import io.javalin.Javalin;
 
 import java.sql.Connection;
 import java.util.Scanner;
@@ -13,11 +17,13 @@ public class Application {
         Connection conn = ConnectionSingleton.getConnection();
         CarsDAO carsDao = new CarsDAO(conn);
         CompanyDAO companyDAO = new CompanyDAO(conn);
-//        CarsService carsService = new CarsService(CarsDAO);
-//        CompanyService companyService = new CompanyService(CompanyDAO);
+        CompanyService companyService = new CompanyService(companyDAO);
+        CarsService carsService = new CarsService(carsDao, companyService);
 
-          Scanner sc = new Scanner(System.in);
-
+        Scanner sc = new Scanner(System.in);
+        Controller controller = new Controller(carsService, companyService);
+        Javalin server = controller.getAPI();
+        server.start();
     }
 
 
