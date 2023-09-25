@@ -27,8 +27,41 @@ public class Controller {
     public Javalin getAPI() {
         Javalin app = Javalin.create();
 //        Define endpoints below
+        /**
+         *  GET API -> gets all cars in database
+         */
+//        app.get("/api/v1/cars/
+
+        /** GET API -> gets all cars with price  >= ?
+         *
+         */
+//        app.get("/api/v1/cars/carsPrice>={price}", this::getCarsPriceGreaterThan);
+
+        /** GET API -> gets all cars with price  <= ?
+         *
+         */
+//        app.get("/api/v1/cars/carsPrice<={price}", this::getCarsPriceLessThan);
+
+        /** GET API -> gets all companies
+         *
+         */
+//        app.get("/api/v1/cars/companyList=", this::getCompanyList);
+
+
+        /** GET API -> gets all cars with company_id = ?
+         *
+         */
         app.get("/api/v1/cars/carsByCompanyId={company_id}", this::getCarsByCompanyId);
 
+        /** GET API -> gets all cars' mpg in descending order
+         *
+         */
+//        app.get("/api/v1/cars/bestmpg={company_id}", this::getCompanyList);
+
+        /** GET API -> gets all cars' mpg / price ratio
+         *
+         */
+//        app.get("/api/v1/cars/mpgPrice efficiency={notSure}", this::getCompanyList);
 
 
         return app;
