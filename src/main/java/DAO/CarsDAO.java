@@ -50,7 +50,7 @@ public class CarsDAO {
      * Price, mpg, year, minMpgPriceRatio, companyId
      */
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
-                                 Integer minYear, Integer maxYear, String sortDirectionOnMpgPriceRatio, Integer companyId) {
+                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId) {
         List<Cars> cars = new ArrayList<>();
 
         try {
@@ -66,7 +66,7 @@ public class CarsDAO {
             if (companyId != null) {
                 sql.append(" and company_id = ?"); }
 //              Add sorting condition based on mpgPriceRatio
-                if ("desc".equals(sortDirectionOnMpgPriceRatio)) {
+                if ("desc".equals(sortMpgPriceRatio)) {
                     sql.append(" order by mpg / price DESC");
                 }
 //              Execute SQL Query
@@ -105,6 +105,8 @@ public class CarsDAO {
                         car.setPrice(rs.getFloat("price"));
                         car.setMpg(rs.getFloat("mpg"));
                         car.setCompanyFKey(rs.getInt("company_id"));
+//                      Calculate MPG/Price ratio
+                        car.setMpgPriceRatio(car.getMpg() / car.getPrice());
                         cars.add(car);
                     }
                 }

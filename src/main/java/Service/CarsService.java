@@ -41,12 +41,12 @@ public class CarsService {
      * @param maxMpg                       Maximum MPG filter
      * @param minYear                      Minimum year filter
      * @param maxYear                      Maximum year filter
-     * @param sortDirectionOnMpgPriceRatio Sorting descending for MPG/Price ratio
+     * @param sortMpgPriceRatio Sorting descending for MPG/Price ratio
      * @param companyId                    Company ID filter
      * @return List of filtered cars
      */
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
-                                 Integer minYear, Integer maxYear, String sortDirectionOnMpgPriceRatio, Integer companyId) {
-        return carsDAO.filterCars(minPrice, maxPrice, minMpg, maxMpg, minYear, maxYear, sortDirectionOnMpgPriceRatio, companyId);
+                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId) {
+        return carsDAO.filterCars(minPrice, maxPrice, minMpg, maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId);
     }
 }
