@@ -5,14 +5,11 @@ import Service.CarsService;
 import Service.CompanyService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.util.List;
-import java.util.Objects;
-
 
 /**
  * A Controller is a class that manages web interaction - it takes in requests and produces responses
- * The reason why it's called a 'controller' is that it need to route a request to the most appropriate method
+ * The reason why it's called a 'controller' is that it needs to route a request to the most appropriate method
  * to handle it
  */
 public class Controller {
@@ -24,12 +21,17 @@ public class Controller {
         this.companyService = companyService;
     }
 
-//    API Endpoints go here:
+    // API Endpoints go here:
     public Javalin getAPI() {
         Javalin app = Javalin.create();
-//        Define endpoints below
+        // Define endpoints below
         /**
-         *  GET API -> gets all cars in database
+         *  GET API -> gets all companies by ID
+         */
+        app.get("/api/v1/company/companyList=", this::getCompany);
+
+        /**
+         *  GET API -> gets all cars in the database
          *  You can specify optional query parameters for filtering:
          *  - minPrice: Minimum price filter
          *  - maxPrice: Maximum price filter
@@ -41,12 +43,6 @@ public class Controller {
          *  - companyId: Company Id filter
          */
         app.get("/api/v1/cars/", this::filterCars);
-
-
-        /** GET API -> gets all companies
-         *
-         */
-//        app.get("/api/v1/cars/companyList=", this::getCompanyList);
 
         return app;
     }
@@ -74,5 +70,11 @@ public class Controller {
         } else {
             ctx.json(cars);
         }
+    }
+
+    private List getCompany(Context context) {
+        // Handle company-related logic here
+        // ...
+        return null;
     }
 }

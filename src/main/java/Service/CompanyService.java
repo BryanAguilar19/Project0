@@ -1,6 +1,9 @@
 package Service;
 
 import DAO.CompanyDAO;
+import Model.Company;
+
+import java.util.List;
 
 public class CompanyService {
     CompanyDAO companyDAO;
@@ -11,5 +14,13 @@ public class CompanyService {
     }
     public int getIdFromName(String name){
         return companyDAO.getCompanyIdByName(name);
+    }
+
+    /**
+     * Call the 'getCompanyList' method on the 'companyDAO' object to retrieve a list of companies.
+     * @return the list of companies retrieved from the data source.
+     */
+    public List<Company> getCompany(){
+        return companyDAO.getCompanyList();
     }
 }

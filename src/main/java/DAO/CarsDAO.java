@@ -52,6 +52,7 @@ public class CarsDAO {
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
                                  Integer minYear, Integer maxYear, String sortDirectionOnMpgPriceRatio, Integer companyId) {
         List<Cars> cars = new ArrayList<>();
+
         try {
 //            Start building the SQL query -- First with min/max query params
             StringBuilder sql = new StringBuilder("select * from Cars where 1=1");
@@ -64,11 +65,11 @@ public class CarsDAO {
 //          Add filtering by companyId if provided
             if (companyId != null) {
                 sql.append(" and company_id = ?"); }
-//          Add sorting condition based on mpgPriceRatio
+//              Add sorting condition based on mpgPriceRatio
                 if ("desc".equals(sortDirectionOnMpgPriceRatio)) {
                     sql.append(" order by mpg / price DESC");
                 }
-//          Execute SQL Query
+//              Execute SQL Query
                 try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 //              Ensures the parameter index is correct if parameter is used
                     int parameterIndex = 1;

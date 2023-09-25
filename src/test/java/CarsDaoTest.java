@@ -24,6 +24,16 @@ public class CarsDaoTest {
 
     }
 
+    @Test
+    public void insertCarTest(){
+
+    }
+
+    @Test
+    public void insertCompanyTest(){
+
+    }
+
 
 
 }
