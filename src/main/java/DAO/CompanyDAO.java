@@ -15,7 +15,7 @@ public class CompanyDAO {
      */
     public int getCompanyIdByName(String name){
         try{
-            PreparedStatement ps = conn.prepareStatement("select company_id from company where company_name = ?");
+            PreparedStatement ps = conn.prepareStatement("select company_id from company where company_name = ?;");
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
