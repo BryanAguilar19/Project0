@@ -42,7 +42,7 @@ public class Controller {
          *  - maxMpg: Maximum MPG filter
          *  - minYear: Minimum year filter
          *  - maxYear: Maximum year filter
-         *  - sortDirectionOnMpgPriceRatio: Sorting cars in descending MpgPrice Ratio
+         *  - sortMpgPriceRatio: Sorting cars in descending MpgPrice Ratio
          *  - companyId: Company Id filter
          */
         app.get("/api/v1/cars/", this::filterCars);
@@ -62,7 +62,7 @@ public class Controller {
         Double maxMpg = ctx.queryParam("maxMpg") != null ? Double.valueOf(ctx.queryParam("maxMpg")) : null;
         Integer minYear = ctx.queryParam("minYear") != null ? Integer.valueOf(ctx.queryParam("minYear")) : null;
         Integer maxYear = ctx.queryParam("maxYear") != null ? Integer.valueOf(ctx.queryParam("maxYear")) : null;
-        String sortDirectionOnMpgPriceRatio = ctx.queryParam("sortDirectionOnMpgPriceRatio");
+        String sortDirectionOnMpgPriceRatio = ctx.queryParam("sortMpgPriceRatio");
         Integer companyId = ctx.queryParam("companyId") != null ? Integer.valueOf(ctx.queryParam("companyId")) : null;
 
         List<Cars> cars = carsService.filterCars(minPrice, maxPrice, minMpg,

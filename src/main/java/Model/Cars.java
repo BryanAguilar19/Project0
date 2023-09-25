@@ -10,6 +10,7 @@ public class Cars {
     private double price;
     private double mpg;
     private int companyFKey;
+    private Double mpgPriceRatio;
 
 
 //    Initializing Cars object
@@ -76,6 +77,16 @@ public class Cars {
 
     public void setCompanyFKey(int companyFKey) {
         this.companyFKey = companyFKey;
+    }
+
+    // Getter method for MPG/Price ratio
+    public Double getMpgPriceRatio() {
+        return mpgPriceRatio;
+    }
+
+    // Setter method for MPG/Price ratio
+    public void setMpgPriceRatio(Double mpgPriceRatio) {
+        this.mpgPriceRatio = mpgPriceRatio;
     }
 
     @Override
