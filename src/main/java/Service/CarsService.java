@@ -32,8 +32,5 @@ public class CarsService {
 
     }
 
-    public List<Cars> getCarsByCompanyId(int companyId){
-        return carsDAO.getCarsByCompanyId(companyId);
-    }
 
 }
