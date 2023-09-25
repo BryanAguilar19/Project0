@@ -59,11 +59,11 @@ public class Controller {
         Double maxMpg = ctx.queryParam("maxMpg") != null ? Double.valueOf(ctx.queryParam("maxMpg")) : null;
         Integer minYear = ctx.queryParam("minYear") != null ? Integer.valueOf(ctx.queryParam("minYear")) : null;
         Integer maxYear = ctx.queryParam("maxYear") != null ? Integer.valueOf(ctx.queryParam("maxYear")) : null;
-        String sortDirectionOnMpgPriceRatio = ctx.queryParam("sortMpgPriceRatio");
+        String sortMpgPriceRatio = ctx.queryParam("sortMpgPriceRatio");
         Integer companyId = ctx.queryParam("companyId") != null ? Integer.valueOf(ctx.queryParam("companyId")) : null;
 
         List<Cars> cars = carsService.filterCars(minPrice, maxPrice, minMpg,
-                maxMpg, minYear, maxYear, sortDirectionOnMpgPriceRatio, companyId);
+                maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId);
 
         if (cars == null || cars.isEmpty()) {
             ctx.status(404).json("No cars found for given criteria.");
