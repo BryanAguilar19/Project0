@@ -29,56 +29,45 @@ public class Controller {
 //        Define endpoints below
         /**
          *  GET API -> gets all cars in database
+         *  You can specify optional query parameters for filtering:
+         *  - minPrice: Minimum price filter
+         *  - maxPrice: Maximum price filter
+         *  - minMpg: Minimum MPG filter
+         *  - maxMpg: Maximum MPG filter
+         *  - minYear: Minimum year filter
+         *  - maxYear: Maximum year filter
+         *  - minMpgPriceRatio: Minimum MPG/Price ratio filter
+         *  - maxMpgPriceRatio: Maximum MPG/Price ratio filter
          */
-//        app.get("/api/v1/cars/
+        app.get("/api/v1/cars/", ctx -> {
+//       Extract optional query parameters
+            Double minPrice = ctx.queryParam("minPrice", Double.class).orElse(null);
+            Double maxPrice = ctx.queryParam("maxPrice", Double.class).orElse(null);
+            Double minMpg = ctx.queryParam("minMpg", Double.class).orElse(null);
+            Double maxMpg = ctx.queryParam("maxMpg", Double.class).orElse(null);
+            Integer minYear = ctx.queryParam("minYear", Integer.class).orElse(null);
+            Integer maxYear = ctx.queryParam("maxYear", Integer.class).orElse(null);
+            Double minMpgPriceRatio = ctx.queryParam("minMpgPriceRatio", Double.class).orElse(null);
+            Double maxMpgPriceRatio = ctx.queryParam("maxMpgPriceRatio", Double.class).orElse(null);
+            Integer companyId = ctx.queryParam("companyId", Integer.class).orElse(null);
 
-        /** GET API -> gets all cars with price  >= ?
-         *
-         */
-//        app.get("/api/v1/cars/carsPrice>={price}", this::getCarsPriceGreaterThan);
+            List<Cars> cars = carsService.filterCars(minPrice, maxPrice, minMpg,
+                    maxMpg, minYear, maxYear, minMpgPriceRatio, maxMpgPriceRatio );
 
-        /** GET API -> gets all cars with price  <= ?
-         *
-         */
-//        app.get("/api/v1/cars/carsPrice<={price}", this::getCarsPriceLessThan);
+            if (cars == null || cars.isEmpty()) {
+            ctx.status(404).json("No cars found for given criteria.");
+            } else {
+                  ctx.json(cars);
+            }
+        });
 
         /** GET API -> gets all companies
          *
          */
 //        app.get("/api/v1/cars/companyList=", this::getCompanyList);
 
-
-        /** GET API -> gets all cars with company_id = ?
-         *
-         */
-        app.get("/api/v1/cars/carsByCompanyId={company_id}", this::getCarsByCompanyId);
-
-        /** GET API -> gets all cars' mpg in descending order
-         *
-         */
-//        app.get("/api/v1/cars/bestmpg={company_id}", this::getCompanyList);
-
-        /** GET API -> gets all cars' mpg / price ratio
-         *
-         */
-//        app.get("/api/v1/cars/mpgPrice efficiency={notSure}", this::getCompanyList);
-
-
         return app;
     }
 
-    /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
-     */
-    private void getCarsByCompanyId(Context context) {
-        int companyId = Integer.parseInt(context.pathParam("company_id"));
-        List<Cars> cars = carsService.getCarsByCompanyId(companyId);
-        if (cars == null || cars.isEmpty()) {
-            context.status(404).json("No cars found for the given company Id. Please give company_id 1-8.");
-        } else {
-            context.json(cars);
-        }
 
-    }
 }

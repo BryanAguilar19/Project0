@@ -43,29 +43,16 @@ public class CarsDAO {
         }
     }
 
-    /** Query to retrieve cars by company from the database
-     *
+    /** Query to retrieve all cars -> allow for query parameters based on:
+     *  Price, mpg, year, minMpgPriceRatio, companyId
      */
-    public List<Cars> getCarsByCompanyId(int companyId) {
+    public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
+                                 Integer minYear, Integer maxYear, Double minMpgPriceRatio, Double maxMpgPriceRatio, Integer companyId) {
         List<Cars> cars = new ArrayList<>();
-        try (PreparedStatement ps = conn.prepareStatement("select * from Cars where company_id = ?")) {
-            ps.setInt(1, companyId);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-//                Create Car objects and add them to the list
-                Cars car = new Cars();
-                car.setCarId(rs.getInt("car_id"));
-                car.setCarName(rs.getString("car_name"));
-                car.setYearMade(rs.getInt("year_made"));
-                car.setPrice(rs.getFloat("price"));
-                car.setMpg(rs.getFloat("mpg"));
-                car.setCompanyFKey(rs.getInt("company_id"));
-                cars.add(car);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try {
+//            Start building the SQL query
+            StringBuilder queryBuilder = new StringBuilder("select * from Cars where 1=1");
         }
-        return cars;
     }
-
 }
+
