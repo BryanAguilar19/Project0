@@ -1,10 +1,13 @@
 package Controller;
 
 import Model.Cars;
+import Model.Company;
 import Service.CarsService;
 import Service.CompanyService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +31,7 @@ public class Controller {
         /**
          *  GET API -> gets all companies by ID
          */
-        app.get("/api/v1/company/companyList=", this::getCompany);
+        app.get("/api/v1/company/companyList=", this::filterCompany);
 
         /**
          *  GET API -> gets all cars in the database
@@ -72,9 +75,15 @@ public class Controller {
         }
     }
 
-    private List getCompany(Context context) {
-        // Handle company-related logic here
-        // ...
-        return null;
+    /**
+     * Handler for filtering Companies
+     * @param context
+     */
+    private void filterCompany(Context context) {
+        //Retrieve a list of Company objects from the CompanyService.
+        List<Company> companyList = companyService.getCompany();
+
+        //Serializing the companyList to JSON and send it as the response in the provided context.
+        context.json(companyList);
     }
 }
