@@ -1,11 +1,12 @@
 package Controller;
 
 import Model.Cars;
+import Model.Company;
 import Service.CarsService;
 import Service.CompanyService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
+import DAO.CompanyDAO;
 import java.util.List;
 
 
@@ -27,6 +28,14 @@ public class Controller {
     public Javalin getAPI() {
         Javalin app = Javalin.create();
 //        Define endpoints below
+        /** GET API -> gets all companies by ID
+         *
+         */
+
+        app.get("/api/v1/company/companyList=", this::getCompany);
+
+
+
         /**
          *  GET API -> gets all cars in database
          *  You can specify optional query parameters for filtering:
@@ -61,13 +70,10 @@ public class Controller {
             }
         });
 
-        /** GET API -> gets all companies
-         *
-         */
-//        app.get("/api/v1/cars/companyList=", this::getCompanyList);
-
         return app;
     }
 
+    private List getCompany(Context context) {
+    }
 
 }

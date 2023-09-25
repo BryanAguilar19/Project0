@@ -49,10 +49,11 @@ public class CarsDAO {
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
                                  Integer minYear, Integer maxYear, Double minMpgPriceRatio, Double maxMpgPriceRatio, Integer companyId) {
         List<Cars> cars = new ArrayList<>();
-        try {
+       // try {
 //            Start building the SQL query
             StringBuilder queryBuilder = new StringBuilder("select * from Cars where 1=1");
-        }
+       // }
+        return cars;
     }
 }
 
