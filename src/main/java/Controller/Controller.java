@@ -63,6 +63,14 @@ public class Controller {
          */
 //        app.get("/api/v1/cars/mpgPrice efficiency={notSure}", this::getCompanyList);
 
+        /**
+         * GET API -> gets all cars by Company Name
+         */
+
+       // app.get("/api/v1/company")
+
+
+
 
         return app;
     }
