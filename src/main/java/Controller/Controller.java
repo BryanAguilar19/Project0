@@ -26,8 +26,8 @@ public class Controller {
 //    API Endpoints go here:
     public Javalin getAPI() {
         Javalin app = Javalin.create();
-//        Define endpoints
-        app.get("/cars/{company_id}", this::getCarsByCompanyId);
+//        Define endpoints below
+        app.get("/api/v1/cars/carsByCompanyId={company_id}", this::getCarsByCompanyId);
 
 
 
