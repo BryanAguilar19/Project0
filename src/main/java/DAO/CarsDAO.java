@@ -67,34 +67,23 @@ public class CarsDAO {
                 sql.append(" and company_id = ?"); }
 //              Add sorting condition based on mpgPriceRatio
                 if ("desc".equals(sortMpgPriceRatio)) {
-                    sql.append(" order by mpg / price DESC");
+                    sql.append(" order by (mpg / price) desc");
+                } else {
+//                    Default sorting behavior (no sorting specified or "asc" provided)
+                    sql.append(" order by car_id asc");
                 }
 //              Execute SQL Query
                 try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 //              Ensures the parameter index is correct if parameter is used
                     int parameterIndex = 1;
-                    if (minPrice != null) {
-                        ps.setDouble(parameterIndex++, minPrice);
-                    }
-                    if (maxPrice != null) {
-                        ps.setDouble(parameterIndex++, maxPrice);
-                    }
-                    if (minMpg != null) {
-                        ps.setDouble(parameterIndex++, minMpg);
-                    }
-                    if (maxMpg != null) {
-                        ps.setDouble(parameterIndex++, maxMpg);
-                    }
-                    if (minYear != null) {
-                        ps.setInt(parameterIndex++, minYear);
-                    }
-                    if (maxYear != null) {
-                        ps.setInt(parameterIndex++, maxYear);
-                    }
+                    if (minPrice != null) {ps.setDouble(parameterIndex++, minPrice);}
+                    if (maxPrice != null) {ps.setDouble(parameterIndex++, maxPrice);}
+                    if (minMpg != null) {ps.setDouble(parameterIndex++, minMpg);}
+                    if (maxMpg != null) {ps.setDouble(parameterIndex++, maxMpg);}
+                    if (minYear != null) {ps.setInt(parameterIndex++, minYear);}
+                    if (maxYear != null) {ps.setInt(parameterIndex++, maxYear);}
 //                  Set companyId as a parameter if companyId is provided
-                    if (companyId != null) {
-                        ps.setInt(parameterIndex++, companyId);
-                    }
+                    if (companyId != null) {ps.setInt(parameterIndex++, companyId);}
 
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
@@ -106,7 +95,7 @@ public class CarsDAO {
                         car.setMpg(rs.getFloat("mpg"));
                         car.setCompanyFKey(rs.getInt("company_id"));
 //                      Calculate MPG/Price ratio
-                        car.setMpgPriceRatio(car.getMpg() / car.getPrice());
+                        car.setMpgPriceRatio((car.getMpg() / car.getPrice()) * 1000);
                         cars.add(car);
                     }
                 }

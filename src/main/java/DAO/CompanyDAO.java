@@ -42,7 +42,7 @@ public class CompanyDAO {
 
         try {
             //SQL statement to select all records from the 'Company' table.
-            PreparedStatement ps = conn.prepareStatement("select * from Company");
+            PreparedStatement ps = conn.prepareStatement("select * from Company order by company_name asc");
 
             //Execute the SQL query and retrieve the result set.
             ResultSet rs = ps.executeQuery();
