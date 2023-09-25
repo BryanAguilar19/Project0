@@ -2,7 +2,6 @@ package Service;
 
 import DAO.CompanyDAO;
 import Model.Company;
-
 import java.util.List;
 
 public class CompanyService {
