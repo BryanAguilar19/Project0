@@ -23,16 +23,9 @@ public class CarsService {
      * Create a new car and insert it into the database.
      *
      * @param car           The car to be created and saved.
-     * @param companyName   The name of the company associated with the car.
      * @throws Exception    If there's an issue with creating or saving the car.
      */
-    public void insertCar(Cars car, String companyName) throws Exception {
-        // 1. Get the company ID based on the provided company name
-        int companyId = companyService.getIdFromName(companyName);
-
-        // 2. Set the company ID in the car object
-        car.setCompanyFKey(companyId);
-
+    public void insertCar(Cars car) throws Exception {
         // 3. Call the DAO to insert the new car into the database
         carsDAO.insertCar(car);
     }

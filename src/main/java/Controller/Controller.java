@@ -95,7 +95,7 @@ public class Controller {
 //            Get company name associated with the car from the request
             String companyName = ctx.queryParam("companyName");
 //            Insert new car using CarsService
-            carsService.insertCar(newCar, companyName);
+            carsService.insertCar(newCar);
             ctx.status(201).json("Car successfully created.");
         } catch (Exception e) {
             e.printStackTrace();
