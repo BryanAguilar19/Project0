@@ -44,6 +44,11 @@ public class Controller {
          */
         app.post("/api/v1/companies", this::postCompany);
 
+        /**
+         * GET API -> get a single ID from company Name
+         *
+         */
+
 
 
 //    ------------------------->  Cars API Section   <-------------------------  //
@@ -120,7 +125,6 @@ public class Controller {
             ctx.json(cars);
         }
     }
-
 
 
 

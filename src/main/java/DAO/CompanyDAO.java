@@ -74,7 +74,6 @@ public class CompanyDAO {
     /**
      * Inserts company information into the database
      * @param company a company object
-     * @return the inserted company object, otherwise return null
      */
     public Company insertCompany(Company company){
         //install connection to the Singleton File
@@ -93,14 +92,11 @@ public class CompanyDAO {
             //Execute the query to insert company record
             ps.executeUpdate();
 
-            //Return company object
             return company;
-
         }catch (SQLException e){
             //Handle SQL Exceptions if there are any errors
             System.out.println("Execution of SQL did not go through: " + e.getMessage());
         }
-        //Return null if the adding of the company was not successful
         return null;
     }
 

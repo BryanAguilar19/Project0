@@ -22,7 +22,7 @@ public class CompanyService {
      * Call the 'getCompanyIdByName' method on the 'companyDAO' object to retrieve
      * ID's from the 'company_name'
      * @param name a name object
-     * @return
+     * @return company ID by the given name
      */
     public int getIdFromName(String name) {
         return companyDAO.getCompanyIdByName(name);
