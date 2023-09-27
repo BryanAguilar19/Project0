@@ -32,11 +32,11 @@ public class Controller {
     public Javalin getAPI() {
         Javalin app = Javalin.create();
 //    ------------------------->  Company API Section  <-------------------------  //
-        /*
-           GET API -> gets all companies
-           Query Parameters: Company_Id, Name, Country
+        /**
+         * GET API -> gets all companies
+         *Query Parameters: Company_Id, Name, Country
          */
-        app.get("/api/v1/companies", this::filterCompany);
+        app.get("/api/v1/companies", this::getCompany);
 
         /**
          * POST API -> add company
@@ -97,8 +97,14 @@ public class Controller {
         }
     }
 
-    /* Handler for filtering Companies || @param context */
-    private void filterCompany(Context context) {
+
+
+
+    /**
+     * Retrieving all Companies
+     * @param context a context object that URL will pass through request and response
+     */
+    private void getCompany(Context context) {
         //Retrieve a list of Company objects from the CompanyService.
         List<Company> companyList = companyService.getCompany();
 

@@ -18,6 +18,12 @@ public class CompanyService {
         this.companyDAO = authorDAO;
     }
 
+    /**
+     * Call the 'getCompanyIdByName' method on the 'companyDAO' object to retrieve
+     * ID's from the 'company_name'
+     * @param name a name object
+     * @return
+     */
     public int getIdFromName(String name) {
         return companyDAO.getCompanyIdByName(name);
     }
@@ -30,6 +36,7 @@ public class CompanyService {
     public List<Company> getCompany() {
         return companyDAO.getCompanyList();
     }
+
 
     /**
      * Using CompanyDAO to add Company

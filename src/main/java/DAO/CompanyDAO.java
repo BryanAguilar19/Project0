@@ -17,7 +17,8 @@ public class CompanyDAO {
         this.conn = conn;
     }
 
-    /** This method retrieves a Company's ID based off its name. If no company is found, return 0.
+    /**
+     * This method retrieves a Company's ID based off its name. If no company is found, return 0.
      */
     public int getCompanyIdByName(String name){
         try{
@@ -102,6 +103,7 @@ public class CompanyDAO {
         //Return null if the adding of the company was not successful
         return null;
     }
+
 }
 
 
