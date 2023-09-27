@@ -20,16 +20,21 @@ public class CarsService {
     }
 
     /**
-     * check if car match already exists in the database, if it does, throw an exception.
-     * otherwise, save the car.
+     * Create a new car and insert it into the database.
      *
-     * @param c    The car to be saved.
-     * @param name The name of the company associated with the car.
-     * @throws Exception If there's an issue with saving the car.
+     * @param car           The car to be created and saved.
+     * @param companyName   The name of the company associated with the car.
+     * @throws Exception    If there's an issue with creating or saving the car.
      */
-    public void saveCar(Cars c, String name) throws Exception {
-        int companyId = companyService.getIdFromName(name);
+    public void insertCar(Cars car, String companyName) throws Exception {
+        // 1. Get the company ID based on the provided company name
+        int companyId = companyService.getIdFromName(companyName);
 
+        // 2. Set the company ID in the car object
+        car.setCompanyFKey(companyId);
+
+        // 3. Call the DAO to insert the new car into the database
+        carsDAO.insertCar(car);
     }
 
     /**
@@ -46,7 +51,7 @@ public class CarsService {
      * @return List of filtered cars
      */
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
-                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId) {
-        return carsDAO.filterCars(minPrice, maxPrice, minMpg, maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId);
+                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId, Integer carId) {
+        return carsDAO.filterCars(minPrice, maxPrice, minMpg, maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId, carId);
     }
 }
