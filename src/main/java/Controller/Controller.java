@@ -38,9 +38,9 @@ public class Controller {
          */
         app.get("/api/v1/companies", this::getCompany);
 
-        /**
-         * POST API -> add company
-         * Query Parameters: Company_Id, Name, Country
+        /*
+          POST API -> add company
+          Query Parameters: Company_Id, Name, Country
          */
         app.post("/api/v1/companies", this::postCompany);
 
@@ -49,7 +49,11 @@ public class Controller {
 //    ------------------------->  Cars API Section   <-------------------------  //
 
         /* CREATE ||    POST -> Creates a new car resource */
+
+        app.post("/api/v1/cars", this::insertCar);
+
         //app.post("/api/v1/cars", this::insertCars);
+
 
 
         /* READ ||      GET -> gets all cars in the database
@@ -67,7 +71,7 @@ public class Controller {
 
 
         /*  PUT -> Updates a specific car by its ID || @param -> car_id */
-        //app.put("/api/v1/cars/{car_id}", this::updateCarsOnId);
+
 
         return app;
     }
@@ -75,7 +79,26 @@ public class Controller {
 
 //    ------------------------->  Handlers  <-------------------------  //
 
-    /* Handler for Cars API || @param ctx */
+    /**
+     * Handler for inserting a new car
+     * @param ctx The Javalin context
+     */
+    private void insertCar(Context ctx) {
+        try {
+//            Parse JSON request body into a Cars object
+            Cars newCar = ctx.bodyAsClass(Cars.class);
+//            Get company name associated with the car from the request
+            String companyName = ctx.queryParam("companyName");
+//            Insert new car using CarsService
+            carsService.insertCar(newCar, companyName);
+            ctx.status(201).json("Car successfully created.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            ctx.status(500).json("Failed to create car: " + e.getMessage());
+        }
+    }
+
+    /* Handler for GET Car API || @param ctx */
     private void filterCars(Context ctx) {
         // Extract optional query parameters
         Double minPrice = ctx.queryParam("minPrice") != null ? Double.valueOf(ctx.queryParam("minPrice")) : null;
@@ -86,9 +109,10 @@ public class Controller {
         Integer maxYear = ctx.queryParam("maxYear") != null ? Integer.valueOf(ctx.queryParam("maxYear")) : null;
         String sortMpgPriceRatio = ctx.queryParam("sortMpgPriceRatio");
         Integer companyId = ctx.queryParam("companyId") != null ? Integer.valueOf(ctx.queryParam("companyId")) : null;
+        Integer carId = ctx.queryParam("carId") != null ? Integer.valueOf(ctx.queryParam("carId")) : null;
 
         List<Cars> cars = carsService.filterCars(minPrice, maxPrice, minMpg,
-                maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId);
+                maxMpg, minYear, maxYear, sortMpgPriceRatio, companyId, carId);
 
         if (cars == null || cars.isEmpty()) {
             ctx.status(404).json("No cars found for given criteria.");

@@ -1,7 +1,6 @@
 package DAO;
 
 import Model.Cars;
-import Service.CarsService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +30,7 @@ public class CarsDAO {
      */
     public void insertCar(Cars car) {
         try {
-            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, year_made, price, mpg, company_id) values (?, ?, ?, ?, ?);");
+            PreparedStatement ps = conn.prepareStatement("insert into Cars (car_id, car_name, year_made, price, mpg, company_id) values (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, car.getCarId());
             ps.setString(2, car.getCarName());
             ps.setInt(3, car.getYearMade());
@@ -39,7 +38,6 @@ public class CarsDAO {
             ps.setDouble(5, car.getMpg());
             ps.setInt(6, car.getCompanyFKey());
             ps.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,7 +48,7 @@ public class CarsDAO {
      * Price, mpg, year, minMpgPriceRatio, companyId
      */
     public List<Cars> filterCars(Double minPrice, Double maxPrice, Double minMpg, Double maxMpg,
-                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId) {
+                                 Integer minYear, Integer maxYear, String sortMpgPriceRatio, Integer companyId, Integer carId) {
         List<Cars> cars = new ArrayList<>();
 
         try {
@@ -66,6 +64,7 @@ public class CarsDAO {
             if (companyId != null) {
                 sql.append(" and company_id = ?"); }
 //              Add sorting condition based on mpgPriceRatio
+            if (carId != null) {sql.append(" and car_id = ?");};
                 if ("desc".equals(sortMpgPriceRatio)) {
                     sql.append(" order by (mpg / price) desc");
                 } else {
@@ -84,6 +83,7 @@ public class CarsDAO {
                     if (maxYear != null) {ps.setInt(parameterIndex++, maxYear);}
 //                  Set companyId as a parameter if companyId is provided
                     if (companyId != null) {ps.setInt(parameterIndex++, companyId);}
+                    if (carId != null) {ps.setInt(parameterIndex++, carId);}
 
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
