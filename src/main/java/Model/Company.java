@@ -3,15 +3,19 @@ package Model;
 import java.util.Objects;
 
 public class Company {
-    private int companyID;
+    private Integer companyID;
     private String companyName;
     private String countryOrigin;
 
     //Constructor
-    public Company(int companyID, String companyName, String countryOrigin) {
+    public Company(Integer companyID, String companyName, String countryOrigin) {
         this.companyID = companyID;
         this.companyName = companyName;
         this.countryOrigin = countryOrigin;
+    }
+
+    //default constructor
+    public Company(){
     }
 
     //Getters and Setters
@@ -40,13 +44,21 @@ public class Company {
         this.countryOrigin = countryOrigin;
     }
 
-    //Hashcode() and equals()
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyID=" + companyID +
+                ", companyName='" + companyName + '\'' +
+                ", countryOrigin='" + countryOrigin + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return companyID == company.companyID && Objects.equals(companyName, company.companyName) && Objects.equals(countryOrigin, company.countryOrigin);
+        return Objects.equals(companyID, company.companyID) && Objects.equals(companyName, company.companyName) && Objects.equals(countryOrigin, company.countryOrigin);
     }
 
     @Override
