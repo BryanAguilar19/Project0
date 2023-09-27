@@ -27,14 +27,21 @@ public class Controller {
     // API Endpoints go here:
     public Javalin getAPI() {
         Javalin app = Javalin.create();
-        // Define endpoints below
+//    ------------------------->  API Endpoints  <-------------------------  //
+
+//    ------------------------->  Company API Section  <-------------------------  //
         /**
-         *  GET API -> gets all companies by ID
+         *  GET API -> gets all companies
+         *  Query Parameters: Company_Id, Name, Country
          */
-        app.get("/api/v1/company/companyList=", this::filterCompany);
+        app.get("/api/v1/companies", this::filterCompany);
+
+
+
+//    ------------------------->  Cars API Section   <-------------------------  //
 
         /**
-         *  GET API -> gets all cars in the database
+         *  GET -> gets all cars in the database
          *  You can specify optional query parameters for filtering:
          *  - minPrice: Minimum price filter
          *  - maxPrice: Maximum price filter
@@ -45,13 +52,16 @@ public class Controller {
          *  - sortMpgPriceRatio: Sorting cars in descending MpgPrice Ratio
          *  - companyId: Company Id filter
          */
-        app.get("/api/v1/cars/", this::filterCars);
+        app.get("/api/v1/cars", this::filterCars);
 
         return app;
     }
 
+
+//    ------------------------->  Handlers  <-------------------------  //
+
     /**
-     * Handler for filterCars API
+     * Handler for Cars API
      * @param ctx
      */
     private void filterCars(Context ctx) {
