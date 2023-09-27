@@ -4,8 +4,13 @@ import Model.Cars;
 import Model.Company;
 import Service.CarsService;
 import Service.CompanyService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 //import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +38,22 @@ public class Controller {
          */
         app.get("/api/v1/companies", this::filterCompany);
 
+        /*
+          POST API -> add company
+          Query Parameters: Company_Id, Name, Country
+         */
+        app.post("/api/v1/companies", this::postCompany);
+
 
 
 //    ------------------------->  Cars API Section   <-------------------------  //
 
         /* CREATE ||    POST -> Creates a new car resource */
+
         app.post("/api/v1/cars", this::insertCar);
+
+        //app.post("/api/v1/cars", this::insertCars);
+
 
 
         /* READ ||      GET -> gets all cars in the database
@@ -56,7 +71,7 @@ public class Controller {
 
 
         /*  PUT -> Updates a specific car by its ID || @param -> car_id */
-//        app.put("/api/v1/cars/{car_id}", this::updateCarsOnId);
+
 
         return app;
     }
@@ -114,4 +129,35 @@ public class Controller {
         //Serializing the companyList to JSON and send it as the response in the provided context.
         context.json(companyList);
     }
+
+    /**
+     * Handler for POST request for adding a new company
+     * @param context representing the URL request and response
+     */
+    private void postCompany(Context context){
+        //  Creating an Object Mapper object for deserialization
+        ObjectMapper op = new ObjectMapper();
+
+        try {
+            // Deserialize the request body (JSON) into a Company object
+            Company company = op.readValue(context.body(), Company.class);
+
+            Company addCompany = companyService.addCompany(company);
+
+            // If added successfully, respond with the added company as JSON
+            //Else return the status error
+            if(addCompany!=null){
+                context.json(op.writeValueAsString(addCompany));
+                context.status(201).json("Company Successfully Added.............");
+            }else{
+                context.status(404).json("Company was not added, please try again");
+            }
+        }
+        catch (JsonProcessingException e){
+            // Handle JSON processing exception
+            context.status(400).json("Invalid JSON request body: " + e.getMessage());
+        }
+    }
 }
+
+

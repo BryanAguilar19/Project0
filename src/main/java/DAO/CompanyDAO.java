@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Company;
+import Util.ConnectionSingleton;
 
 import javax.xml.transform.Result;
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class CompanyDAO {
      */
     public int getCompanyIdByName(String name){
         try{
-            PreparedStatement ps = conn.prepareStatement("select company_id from company where company_name = ?;");
+            PreparedStatement ps = conn.prepareStatement("select company_id from company where company_name = ?");
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -42,7 +43,7 @@ public class CompanyDAO {
 
         try {
             //SQL statement to select all records from the 'Company' table.
-            PreparedStatement ps = conn.prepareStatement("select * from Company order by company_name asc");
+            PreparedStatement ps = conn.prepareStatement("select * from Company order by company_id asc");
 
             //Execute the SQL query and retrieve the result set.
             ResultSet rs = ps.executeQuery();
@@ -69,4 +70,38 @@ public class CompanyDAO {
         return companyList;
     }
 
+    /**
+     * Inserts company information into the database
+     * @param company a company object
+     * @return the inserted company object, otherwise return null
+     */
+    public Company insertCompany(Company company){
+        //install connection to the Singleton File
+        Connection conn = ConnectionSingleton.getConnection();
+        //Applying try catch
+        try{
+            // defines the SQL statement for inserting a company, store in String
+            String sql = "insert into Company (company_id, company_name, country_name) values (?,?,?)";
+
+            //Prepared Statement to set and get string methods for info collection
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, company.getCompanyID());
+            ps.setString(2, company.getCompanyName());
+            ps.setString(3, company.getCountryOrigin());
+
+            //Execute the query to insert company record
+            ps.executeUpdate();
+
+            //Return company object
+            return company;
+
+        }catch (SQLException e){
+            //Handle SQL Exceptions if there are any errors
+            System.out.println("Execution of SQL did not go through: " + e.getMessage());
+        }
+        //Return null if the adding of the company was not successful
+        return null;
+    }
 }
+
+
