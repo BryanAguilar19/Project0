@@ -11,6 +11,8 @@ import io.javalin.http.Context;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+//import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +28,13 @@ public class Controller {
         this.carsService = carsService;
         this.companyService = companyService;
     }
-
-    // API Endpoints go here:
+    //    ------------------------->  API Endpoints  <-------------------------  //
     public Javalin getAPI() {
         Javalin app = Javalin.create();
-//    ------------------------->  API Endpoints  <-------------------------  //
-
 //    ------------------------->  Company API Section  <-------------------------  //
-        /**
-         *  GET API -> gets all companies
-         *  Query Parameters: Company_Id, Name, Country
+        /*
+           GET API -> gets all companies
+           Query Parameters: Company_Id, Name, Country
          */
         app.get("/api/v1/companies", this::filterCompany);
 
@@ -49,19 +48,26 @@ public class Controller {
 
 //    ------------------------->  Cars API Section   <-------------------------  //
 
-        /**
-         *  GET -> gets all cars in the database
-         *  You can specify optional query parameters for filtering:
-         *  - minPrice: Minimum price filter
-         *  - maxPrice: Maximum price filter
-         *  - minMpg: Minimum MPG filter
-         *  - maxMpg: Maximum MPG filter
-         *  - minYear: Minimum year filter
-         *  - maxYear: Maximum year filter
-         *  - sortMpgPriceRatio: Sorting cars in descending MpgPrice Ratio
-         *  - companyId: Company Id filter
+        /* CREATE ||    POST -> Creates a new car resource */
+        //app.post("/api/v1/cars", this::insertCars);
+
+
+        /* READ ||      GET -> gets all cars in the database
+           You can specify optional query parameters for filtering:
+           -> minPrice:             Minimum price filter
+           -> maxPrice:             Maximum price filter
+           -> minMpg:               Minimum MPG filter
+           -> maxMpg:               Maximum MPG filter
+           -> minYear:              Minimum year filter
+           -> maxYear:              Maximum year filter
+           -> sortMpgPriceRatio:    Sorting cars in descending MpgPrice Ratio
+           -> companyId:            Company_id filter
          */
         app.get("/api/v1/cars", this::filterCars);
+
+
+        /*  PUT -> Updates a specific car by its ID || @param -> car_id */
+        //app.put("/api/v1/cars/{car_id}", this::updateCarsOnId);
 
         return app;
     }
@@ -69,10 +75,7 @@ public class Controller {
 
 //    ------------------------->  Handlers  <-------------------------  //
 
-    /**
-     * Handler for Cars API
-     * @param ctx
-     */
+    /* Handler for Cars API || @param ctx */
     private void filterCars(Context ctx) {
         // Extract optional query parameters
         Double minPrice = ctx.queryParam("minPrice") != null ? Double.valueOf(ctx.queryParam("minPrice")) : null;
@@ -94,10 +97,7 @@ public class Controller {
         }
     }
 
-    /**
-     * Handler for filtering Companies
-     * @param context
-     */
+    /* Handler for filtering Companies || @param context */
     private void filterCompany(Context context) {
         //Retrieve a list of Company objects from the CompanyService.
         List<Company> companyList = companyService.getCompany();
