@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 
-public class CarsDaoTest {
+public class projectTest {
     //Declaration of instant variables within the class
     Connection conn;
     CarsDAO carsDAO;
@@ -19,10 +19,6 @@ public class CarsDaoTest {
         carsDAO = new CarsDAO(conn);
     }
 
-    @Test
-    public void getCarsByCompanyIdTest(){
-
-    }
 
     @Test
     public void insertCarTest(){
@@ -33,6 +29,8 @@ public class CarsDaoTest {
     public void insertCompanyTest(){
 
     }
+
+
 
 
 
