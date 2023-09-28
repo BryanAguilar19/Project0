@@ -25,13 +25,7 @@ public class CompanyDAOTest {
     }
 
     @Test
-    public void CompanyDAO_insertCompany(){
-
-    }
-
-    @Test
     public void CompanyDAO_getCompanyList(){
         List<Company> companyList = companyDAO.getCompanyList();
-
     }
 }
