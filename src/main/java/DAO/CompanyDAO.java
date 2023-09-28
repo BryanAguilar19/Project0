@@ -17,24 +17,8 @@ public class CompanyDAO {
         this.conn = conn;
     }
 
-    /**
-     * This method retrieves a Company's ID based off its name. If no company is found, return 0.
-     */
-    public int getCompanyIdByName(String name){
-        //install connection to the Singleton File
-        Connection conn = ConnectionSingleton.getConnection();
-        try{
-            PreparedStatement ps = conn.prepareStatement("select company_id from Company where company_name = ?");
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                return rs.getInt("company_id");
-            }
-        }catch(SQLException e){
-            System.out.println("SQL statement is not Querying" + e.getMessage());
-        }
-        return 0;
-    }
+
+
 
     /**
      * Define a public List method to retrieve a list of Company objects from a database.
