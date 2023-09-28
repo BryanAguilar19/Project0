@@ -109,15 +109,24 @@ public class Controller {
 
     /**
      * Retrieving all Companies
-     * @param context a context object that URL will pass through request and response
+     * @param ctx a context object that URL will pass through request and response
      */
-    private void getCompany(Context context) {
-        //Retrieve a list of Company objects from the CompanyService.
-        List<Company> companyList = companyService.getCompany();
+    private void getCompany(Context ctx) {
+        // Extract optional query parameters
+        Integer companyID = ctx.queryParam("companyID") != null ? Integer.valueOf(ctx.queryParam("companyID")) : null;
+        String companyName = ctx.queryParam("companyName") != null ? String.valueOf(ctx.queryParam("companyName")) : null;;
+        String countryName = ctx.queryParam("countryName") != null ? String.valueOf(ctx.queryParam("countryName")) : null;;
 
-        //Serializing the companyList to JSON and send it as the response in the provided context.
-        context.json(companyList);
+        // Retrieve a list of Company objects from the companyService based on the query parameters
+        List<Company> companyList = companyService.getCompany(companyID, companyName, countryName);
+
+        if (companyList == null || companyList.isEmpty()) {
+            ctx.status(404).json("No companies found for given criteria.");
+        } else {
+            ctx.json(companyList);
+        }
     }
+
 
     /**
      * Handler for POST request for adding a new company

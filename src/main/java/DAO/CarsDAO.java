@@ -52,7 +52,7 @@ public class CarsDAO {
         List<Cars> cars = new ArrayList<>();
 
         try {
-//            Start building the SQL query -- First with min/max query params
+//          Start building the SQL query -- First with min/max query params
             StringBuilder sql = new StringBuilder("select * from Cars where 1=1");
             if (minPrice != null) {sql.append(" and price >= ?");}
             if (maxPrice != null) {sql.append(" and price <= ?");}
@@ -65,44 +65,43 @@ public class CarsDAO {
                 sql.append(" and company_id = ?"); }
 //              Add sorting condition based on mpgPriceRatio
             if (carId != null) {sql.append(" and car_id = ?");};
-                if ("desc".equals(sortMpgPriceRatio)) {
-                    sql.append(" order by (mpg / price) desc");
-                } else {
-//                    Default sorting behavior (no sorting specified or "asc" provided)
-                    sql.append(" order by car_id asc");
+            if ("desc".equals(sortMpgPriceRatio)) {
+                sql.append(" order by (mpg / price) desc");
+            } else {
+//               Default sorting behavior (no sorting specified or "asc" provided)
+                sql.append(" order by car_id asc");
+            }
+//          Execute SQL Query
+            try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+//          Ensures the parameter index is correct if parameter is used
+                int parameterIndex = 1;
+                if (minPrice != null) {ps.setDouble(parameterIndex++, minPrice);}
+                if (maxPrice != null) {ps.setDouble(parameterIndex++, maxPrice);}
+                if (minMpg != null) {ps.setDouble(parameterIndex++, minMpg);}
+                if (maxMpg != null) {ps.setDouble(parameterIndex++, maxMpg);}
+                if (minYear != null) {ps.setInt(parameterIndex++, minYear);}
+                if (maxYear != null) {ps.setInt(parameterIndex++, maxYear);}
+//              Set companyId as a parameter if companyId is provided
+                if (companyId != null) {ps.setInt(parameterIndex++, companyId);}
+                if (carId != null) {ps.setInt(parameterIndex, carId);}
+//              Extract data for parameters
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Cars car = new Cars();
+                    car.setCarId(rs.getInt("car_id"));
+                    car.setCarName(rs.getString("car_name"));
+                    car.setYearMade(rs.getInt("year_made"));
+                    car.setPrice(rs.getFloat("price"));
+                    car.setMpg(rs.getFloat("mpg"));
+                    car.setCompanyFKey(rs.getInt("company_id"));
+//                  Calculate MPG/Price ratio
+                    car.setMpgPriceRatio((car.getMpg() / car.getPrice()) * 1000);
+                    cars.add(car);}
                 }
-//              Execute SQL Query
-                try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
-//              Ensures the parameter index is correct if parameter is used
-                    int parameterIndex = 1;
-                    if (minPrice != null) {ps.setDouble(parameterIndex++, minPrice);}
-                    if (maxPrice != null) {ps.setDouble(parameterIndex++, maxPrice);}
-                    if (minMpg != null) {ps.setDouble(parameterIndex++, minMpg);}
-                    if (maxMpg != null) {ps.setDouble(parameterIndex++, maxMpg);}
-                    if (minYear != null) {ps.setInt(parameterIndex++, minYear);}
-                    if (maxYear != null) {ps.setInt(parameterIndex++, maxYear);}
-//                  Set companyId as a parameter if companyId is provided
-                    if (companyId != null) {ps.setInt(parameterIndex++, companyId);}
-                    if (carId != null) {ps.setInt(parameterIndex++, carId);}
-
-                    ResultSet rs = ps.executeQuery();
-                    while (rs.next()) {
-                        Cars car = new Cars();
-                        car.setCarId(rs.getInt("car_id"));
-                        car.setCarName(rs.getString("car_name"));
-                        car.setYearMade(rs.getInt("year_made"));
-                        car.setPrice(rs.getFloat("price"));
-                        car.setMpg(rs.getFloat("mpg"));
-                        car.setCompanyFKey(rs.getInt("company_id"));
-//                      Calculate MPG/Price ratio
-                        car.setMpgPriceRatio((car.getMpg() / car.getPrice()) * 1000);
-                        cars.add(car);
-                    }
-                }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            return cars;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return cars;
     }
+}
 

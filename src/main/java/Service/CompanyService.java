@@ -23,8 +23,8 @@ public class CompanyService {
      *
      * @return the list of companies retrieved from the data source.
      */
-    public List<Company> getCompany() {
-        return companyDAO.getCompanyList();
+    public List<Company> getCompany(Integer companyID, String companyName, String countryName) {
+        return companyDAO.getCompanyList(companyID, companyName, countryName);
     }
 
     /**
