@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 
-public class projectTest {
+public class CarsDAOTest {
     //Declaration of instant variables within the class
     Connection conn;
     CarsDAO carsDAO;
