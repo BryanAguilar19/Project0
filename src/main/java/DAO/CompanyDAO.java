@@ -21,16 +21,17 @@ public class CompanyDAO {
      * This method retrieves a Company's ID based off its name. If no company is found, return 0.
      */
     public int getCompanyIdByName(String name){
+        //install connection to the Singleton File
+        Connection conn = ConnectionSingleton.getConnection();
         try{
-            PreparedStatement ps = conn.prepareStatement("select company_id from company where company_name = ?");
+            PreparedStatement ps = conn.prepareStatement("select company_id from Company where company_name = ?");
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                int id = rs.getInt("company_id");
-                return id;
+                return rs.getInt("company_id");
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            System.out.println("SQL statement is not Querying" + e.getMessage());
         }
         return 0;
     }

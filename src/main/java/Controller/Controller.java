@@ -9,9 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 //import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +43,9 @@ public class Controller {
 
         /**
          * GET API -> get a single ID from company Name
-         *
+         * Query Parameters: Not required
          */
+        app.get("/api/v1/companiesid", this::filterCompanyIdByName);
 
 
 
@@ -80,6 +78,8 @@ public class Controller {
 
         return app;
     }
+
+
 
 
 //    ------------------------->  Handlers  <-------------------------  //
@@ -166,6 +166,26 @@ public class Controller {
         catch (JsonProcessingException e){
             // Handle JSON processing exception
             context.status(400).json("Invalid JSON request body: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Handler for GET request for filtering the CompanyID by Name
+     * @param context a context object that URL will pass through request and response
+     */
+    private void filterCompanyIdByName(Context context) {
+        try{
+            String companyName = context.queryParam("company_name");
+            int companyID = companyService.getIdFromName(companyName);
+
+            if(companyID != 0){
+                context.json("The company ID is "+ companyID);
+            }
+            else{
+                context.status(404).json("Company ID not found, please try again");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
