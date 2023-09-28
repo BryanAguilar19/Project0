@@ -17,9 +17,6 @@ public class CompanyDAO {
         this.conn = conn;
     }
 
-
-
-
     /**
      * Define a public List method to retrieve a list of Company objects from a database.
      */

@@ -28,31 +28,24 @@ public class Controller {
     //    ------------------------->  API Endpoints  <-------------------------  //
     public Javalin getAPI() {
         Javalin app = Javalin.create();
-//    ------------------------->  Company API Section  <-------------------------  //
+    //  ------------------------->  Company API Section  <-------------------------  //
         /**
          * GET API -> gets all companies
-         *Query Parameters: Company_Id, Name, Country
+         * Query Parameters: Company_Id, Name, Country
          */
         app.get("/api/v1/companies", this::getCompany);
 
-        /*
-          POST API -> add company
-          Query Parameters: Company_Id, Name, Country
+        /**
+         * POST API -> add company
+         * Query Parameters: Company_Id, Name, Country
          */
         app.post("/api/v1/companies", this::postCompany);
-
-
 
 
 //    ------------------------->  Cars API Section   <-------------------------  //
 
         /* CREATE ||    POST -> Creates a new car resource */
-
         app.post("/api/v1/cars", this::insertCar);
-
-        //app.post("/api/v1/cars", this::insertCars);
-
-
 
         /* READ ||      GET -> gets all cars in the database
            You can specify optional query parameters for filtering:
@@ -67,15 +60,8 @@ public class Controller {
          */
         app.get("/api/v1/cars", this::filterCars);
 
-
-        /*  PUT -> Updates a specific car by its ID || @param -> car_id */
-
-
         return app;
     }
-
-
-
 
 //    ------------------------->  Handlers  <-------------------------  //
 
@@ -120,8 +106,6 @@ public class Controller {
             ctx.json(cars);
         }
     }
-
-
 
     /**
      * Retrieving all Companies
