@@ -1,11 +1,12 @@
 import DAO.CarsDAO;
 import Util.ConnectionSingleton;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
 
-public class carDAOTest {
+public class CarsDAOTest {
     //Declaration of instant variables within the class
     Connection conn;
     CarsDAO carsDAO;
@@ -28,7 +29,5 @@ public class carDAOTest {
     public void postCarDAOTest(){
 
     }
-
-
 
 }
