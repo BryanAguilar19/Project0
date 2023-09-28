@@ -20,38 +20,50 @@ public class CompanyDAO {
     /**
      * Define a public List method to retrieve a list of Company objects from a database.
      */
-    public List<Company> getCompanyList(){
-        //Initialize an empty list to store Company objects.
+    public List<Company> getCompanyList(Integer companyID, String companyName, String countryName) {
         List<Company> companyList = new ArrayList<>();
-
         try {
-            //SQL statement to select all records from the 'Company' table.
-            PreparedStatement ps = conn.prepareStatement("select * from Company order by company_id asc");
-
-            //Execute the SQL query and retrieve the result set.
-            ResultSet rs = ps.executeQuery();
-
-            //Using a While Loop, we iterate through the result set to create Company objects and add them to the list.
-            while (rs.next()) {
-                //Extract data from the result set for each row.
-
-                int dbCompanyId = rs.getInt("company_id");
-                String dbCompanyName = rs.getString("company_name");
-                String dbCompanyCountry = rs.getString("country_name");
-
-                //Create a new Company object with the extracted data (Calling Constructor from Company Class).
-                Company com = new Company(dbCompanyId, dbCompanyName, dbCompanyCountry);
-
-                //Add the Company object to the list.
-                companyList.add(com);
+            // Start building the SQL query
+            StringBuilder sql = new StringBuilder("SELECT * FROM Company WHERE 1=1");
+            if (companyID != null) {
+                sql.append(" AND company_id = ?");
+            }
+            if (companyName != null) {
+                sql.append(" AND company_name = ?");
+            }
+            if (countryName != null) {
+                sql.append(" AND country_name = ?");
+            }
+            try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+//          Ensures the parameter index is correct if parameter is used
+                int parameterIndex = 1;
+                if (companyID != null) {
+                    ps.setInt(parameterIndex++, companyID);
+                }
+                if (companyName != null) {
+                    ps.setString(parameterIndex++, companyName);
+                }
+                if (countryName != null) {
+                    ps.setString(parameterIndex, countryName);
+                }
+//              Extract data for parameters
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Company company = new Company();
+                    // Use column names from the database
+                    company.setCompanyID(rs.getInt("company_id"));
+                    company.setCompanyName(rs.getString("company_name"));
+                    company.setCountryOrigin(rs.getString("country_name"));
+                    companyList.add(company);
+                }
             }
         } catch (SQLException e) {
-            //Handle any SQL-related exceptions by printing the stack trace.
             e.printStackTrace();
         }
-        //Return the list of Company objects retrieved from the database.
         return companyList;
     }
+
+
 
     /**
      * Inserts company information into the database
