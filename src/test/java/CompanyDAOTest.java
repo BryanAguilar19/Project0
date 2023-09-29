@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDAOTest {
@@ -17,7 +16,7 @@ public class CompanyDAOTest {
     public Connection conn;
 
     /**
-     * Setting up connection with the Database
+     * Test for setting up connection with the Database
      */
     @Before
     public void CompanyDAO_connectionToCompany(){
