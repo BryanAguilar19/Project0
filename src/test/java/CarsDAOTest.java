@@ -130,5 +130,6 @@ public class CarsDAOTest {
     @After
     public void tearDownAfter() {
         // You can add cleanup code here if needed
+        ConnectionSingleton.resetTestDatabase();
     }
 }

@@ -26,7 +26,7 @@ public class CarsService {
      * @throws Exception    If there's an issue with creating or saving the car.
      */
     public void insertCar(Cars car) throws Exception {
-        // 3. Call the DAO to insert the new car into the database
+        // 1. Call the DAO to insert the new car into the database
         carsDAO.insertCar(car);
     }
 
