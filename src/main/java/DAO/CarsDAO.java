@@ -71,6 +71,12 @@ public class CarsDAO {
 //               Default sorting behavior (no sorting specified or "asc" provided)
                 sql.append(" order by car_id asc");
             }
+
+//            Debug: Print the SQL query and parameter values
+//            System.out.println("Generated SQL Query: " + sql.toString());
+//            System.out.println("Parameters - minPrice: " + minPrice + ", maxPrice: " + maxPrice + ", minMpg: " + minMpg + ", maxMpg: " + maxMpg +
+//                    ", minYear: " + minYear + ", maxYear: " + maxYear + ", sortMpgPriceRatio: " + sortMpgPriceRatio + ", companyId: " + companyId + ", carId: " + carId);
+
 //          Execute SQL Query
             try (PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 //          Ensures the parameter index is correct if parameter is used
@@ -81,6 +87,7 @@ public class CarsDAO {
                 if (maxMpg != null) {ps.setDouble(parameterIndex++, maxMpg);}
                 if (minYear != null) {ps.setInt(parameterIndex++, minYear);}
                 if (maxYear != null) {ps.setInt(parameterIndex++, maxYear);}
+                if (sortMpgPriceRatio != null) {ps.setString(parameterIndex++, sortMpgPriceRatio);}
 //              Set companyId as a parameter if companyId is provided
                 if (companyId != null) {ps.setInt(parameterIndex++, companyId);}
                 if (carId != null) {ps.setInt(parameterIndex, carId);}
