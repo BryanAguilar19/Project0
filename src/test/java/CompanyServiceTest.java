@@ -38,6 +38,10 @@ public class CompanyServiceTest {
         List<Company> expectedCompanies = new ArrayList<>();
 
 //    Add the expected companies to the list:
+        Company company1 = new Company(1, "Company1", "Country1");
+        Company company2 = new Company(2, "Company2", "Country2");
+        expectedCompanies.add(company1);
+        expectedCompanies.add(company2);
 
 //    Mock the behavior of the CompanyDAO to return the expected companies
         when(mockCompanyDAO.getCompanyList(any(), any(), any())).thenReturn(expectedCompanies);
