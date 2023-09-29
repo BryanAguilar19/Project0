@@ -117,6 +117,25 @@ public class CarsDAOTest {
         Assert.assertEquals(expectedCars, filteredCars);
     }
 
+    @Test
+    public void testInsertDuplicateCar() throws SQLException {
+        // Choose a car ID that already exists in the database
+        int existingCarId = 1;
+
+        // Create a test car with the existing car ID
+        Cars testCar = new Cars();
+        testCar.setCarId(existingCarId);
+        testCar.setCarName("Ford Bronco Sport");
+        // Set other properties as needed
+
+        // Mock the PreparedStatement to throw an exception
+        PreparedStatement preparedStatement = mock(PreparedStatement.class);
+        when(conn.prepareStatement(any(String.class))).thenReturn(preparedStatement);
+        doThrow(new SQLException("Duplicate key violation")).when(preparedStatement).executeUpdate();
+
+        // Attempt to insert the test car
+        carsDAO.insertCar(testCar);
+    }
 
 
     /**
