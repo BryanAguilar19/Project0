@@ -1,7 +1,5 @@
-import Controller.Controller;
 import DAO.CarsDAO;
 import Model.Cars;
-import Service.CarsService;
 import Util.ConnectionSingleton;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
