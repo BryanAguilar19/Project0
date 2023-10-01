@@ -2,6 +2,7 @@ import DAO.CompanyDAO;
 import Model.Company;
 import Service.CompanyService;
 import Util.Application;
+import Util.ConnectionSingleton;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,6 +33,9 @@ public class CompanyServiceTest {
         companyService = new CompanyService(mockCompanyDAO);
     }
 
+    /**
+     * Test verifies that it is using the correct filters for retrieving the list of companies on a based criteria
+     */
     @Test
     public void testGetCompany() {
 //    Create a list of mock Company objects to return
@@ -57,7 +61,10 @@ public class CompanyServiceTest {
 
     }
 
-
+    /**
+     * Test the 'insertCompany' method by verifying that it correctly
+     * inserts a car record into the database.
+     */
     @Test
     public void testAddCompany() {
         // Create a test company
@@ -74,6 +81,14 @@ public class CompanyServiceTest {
 
         // Verify that the addedCompany matches the testCompany
         Assert.assertEquals(testCompany, addedCompany);
+    }
+
+    /**
+     * Perform cleanup or reset operations if needed
+     */
+    @After
+    public void tearDown() {
+        ConnectionSingleton.resetTestDatabase();
     }
 }
 

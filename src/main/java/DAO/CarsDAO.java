@@ -17,6 +17,10 @@ public class CarsDAO {
 
     private Connection conn;
 
+    /**
+     * Establishing connection to CarsDAO
+     * @param conn a Connection object
+     */
     public CarsDAO(Connection conn) {
         this.conn = conn;
     }

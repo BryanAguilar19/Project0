@@ -113,8 +113,52 @@ Within the request body, provide a JSON object with the following fields
 - `mpg`: The Miles-Per-Gallon of the car
 - `company_id`: The ID of the Company where car was made
 
+# Tests
+The following are the description of the test cases used for this Application
 
+## CarsDAOTest
+#### setUpBefore()
+- Setting up the database connection and CarsDAO instance for testing.
+#### insertCarTest()
+- Tests the insertCar method by verifying that it correctly inserts a car record into the database.
+#### filterCarsTest()
+- Tests the filterCars method by verifying that it correctly filters and retrieves a list of cars based on criteria
+#### testInsertDuplicateCar()
+- Tests the insertCar method to verify that it handles inserting a car with a duplicate car ID correctly
+#### tearDownAfter()
+- After each test, it is essential to drop and reset the tables used for the test to maintain a clean isolated testing environment
+## CarsServiceTest
 
+#### insertCarTest()
+- Tests the insertCar method by verifying that it correctly inserts a car record into the database.
+#### filterCarsTest()
+- Tests the filterCars method by verifying that it correctly filters and retrieves a list of cars based on criteria.
+#### filterCarsWithNullParametersTest()
+- Tests the filterCars method with null parameters to verify that it behaves as expected.
+#### setUp()
+- Setting up the database connection in CarServices instance for testing.
+#### tearDown()
+- After each test, it is essential to drop and reset the tables used for the test to maintain a clean isolated testing environment
+
+### CompanyDAOTest
+#### CompanyDAO_connectionToCompany()
+- Test for setting up connection with the Database
+#### CompanyDAO_getCompanyList()
+- Tests the 'getCompanyList' method with specific filter criteria and checks for non-null results
+#### CompanyDAO_testInsertCompany()
+- Test the 'insertCompany' method with specific filter criteria and asserts that the retrieved company matches the inserted company
+#### CompanyDAO_tearDown()
+- After each test, it is essential to drop and reset the tables used for the test to maintain a clean isolated testing environment
+
+### CompanyServiceTest
+#### CompanyService_setUp()
+- Test for setting up connection to the database
+#### testGetCompany()
+- Test verifies that it is using the correct filters for retrieving the list of companies on a based criteria
+#### testAddCompany()
+- Test the 'insertCompany' method by verifying that it correctly inserts a car record into the database.
+#### tearDown()
+- After each test, it is essential to drop and reset the tables used for the test to maintain a clean isolated testing environment
 
 
 

@@ -35,7 +35,8 @@ public class CarsDAOTest {
     }
 
     /**
-     * Tests insertCar method
+     * Tests the insertCar method by verifying that it correctly inserts a car record into the database.
+     * @throws Exception
      */
     @Test
     public void insertCarTest() throws Exception {
@@ -71,7 +72,10 @@ public class CarsDAOTest {
 
     }
 
-
+    /**
+     *Tests the filterCars method by verifying that it correctly filters and retrieves a list of cars based on criteria
+     * @throws SQLException
+     */
     @Test
     public void filterCarsTest() throws SQLException {
         // Create a list of test cars that you expect to be returned by the filterCars method
@@ -117,6 +121,10 @@ public class CarsDAOTest {
         Assert.assertEquals(expectedCars, filteredCars);
     }
 
+    /**
+     * Tests the insertCar method to verify that it handles inserting a car with a duplicate car ID correctly
+     * @throws SQLException
+     */
     @Test
     public void testInsertDuplicateCar() throws SQLException {
         // Choose a car ID that already exists in the database
@@ -136,7 +144,6 @@ public class CarsDAOTest {
         // Attempt to insert the test car
         carsDAO.insertCar(testCar);
     }
-
 
     /**
      * Performs necessary cleanup after each test

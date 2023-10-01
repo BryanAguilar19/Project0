@@ -21,6 +21,11 @@ public class Controller {
     CarsService carsService;
     CompanyService companyService;
 
+    /**
+     * Controller Constructor
+     * @param carsService - a carService object instance
+     * @param companyService - a companyService object instance
+     */
     public Controller(CarsService carsService, CompanyService companyService){
         this.carsService = carsService;
         this.companyService = companyService;
@@ -121,12 +126,11 @@ public class Controller {
         List<Company> companyList = companyService.getCompany(companyID, companyName, countryName);
 
         if (companyList == null || companyList.isEmpty()) {
-            ctx.status(404).json("No companies found for given criteria.");
+            ctx.status(404).json("No companies found for given criteria, please try again");
         } else {
             ctx.json(companyList);
         }
     }
-
 
     /**
      * Handler for POST request for adding a new company

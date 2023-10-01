@@ -18,6 +18,9 @@ public class CarsServiceTest {
     CarsDAO carsDAO;
     CompanyService companyService;
 
+    /**
+     * Setting up the database connection in CarServices instance for testing.
+     */
     @Before
     public void setUp() {
         carsDAO = mock(CarsDAO.class);
@@ -25,6 +28,11 @@ public class CarsServiceTest {
         carsService = new CarsService(carsDAO, companyService);
     }
 
+    /**
+     * Tests the insertCar method by verifying that it correctly
+     * inserts a car record into the database.
+     * @throws Exception
+     */
     @Test
     public void insertCarTest() throws Exception {
         // Create a test car
@@ -45,6 +53,10 @@ public class CarsServiceTest {
         verify(carsDAO).insertCar(testCar);
     }
 
+    /**
+     * Tests the filterCars method by verifying that it correctly filters
+     * and retrieves a list of cars based on criteria.
+     */
     @Test
     public void filterCarsTest() {
         // Create test filter criteria
@@ -71,6 +83,9 @@ public class CarsServiceTest {
         assertEquals(expectedFilteredCars, filteredCars);
     }
 
+    /**
+     * Tests the filterCars method with null parameters to verify that it behaves as expected.
+     */
     @Test
     public void filterCarsWithNullParametersTest() {
 //        Test filtering with no parameters
@@ -83,7 +98,6 @@ public class CarsServiceTest {
         String sortMpgPriceRatio = null;
         Integer companyId = null;
         Integer carId = null;
-
 
 //    Mock the behavior of the carsDAO to return a different set of expectedFilteredCars
         List<Cars> differentExpectedFilteredCars = new ArrayList<>();
@@ -98,9 +112,11 @@ public class CarsServiceTest {
 
     }
 
+    /**
+     * Perform cleanup or reset operations if needed
+     */
     @After
     public void tearDown() {
-        // Perform cleanup or reset operations if needed
         ConnectionSingleton.resetTestDatabase();
     }
 }

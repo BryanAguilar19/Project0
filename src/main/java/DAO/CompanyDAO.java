@@ -13,6 +13,11 @@ import java.util.List;
 
 public class CompanyDAO {
     Connection conn;
+
+    /**
+     * Establishing Connection to CompanyDAO
+     * @param conn a Connection object
+     */
     public CompanyDAO(Connection conn){
         this.conn = conn;
     }
@@ -62,8 +67,6 @@ public class CompanyDAO {
         }
         return companyList;
     }
-
-
 
     /**
      * Inserts company information into the database
