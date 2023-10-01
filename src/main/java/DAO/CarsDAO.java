@@ -12,8 +12,6 @@ import java.util.List;
 /** Data Access Object:
  *      A style of object intended to contain methods that interact with a database, which manages the conversion from
  *      database records to/from java objects.
- *
- *
  */
 public class CarsDAO {
 
@@ -26,7 +24,7 @@ public class CarsDAO {
     /**
      * JDBC Insert Method (SQL -> Database)
      *
-     * @param car
+     * @param car a Car parameter object
      */
     public void insertCar(Cars car) {
         try {
